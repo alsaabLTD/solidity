@@ -28,6 +28,12 @@
 
 set -e
 
+if test -z "$1"; then
+	BUILD_DIR="emscripten_build"
+else
+	BUILD_DIR="$1"
+fi
+
 REPO_ROOT=$(cd $(dirname "$0")/.. && pwd)
 SOLJSON="$REPO_ROOT/build/libsolc/soljson.js"
 VERSION=$("$REPO_ROOT"/scripts/get_version.sh)

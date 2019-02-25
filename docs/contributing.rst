@@ -335,12 +335,21 @@ Documentation Style Guide
 The following are style recommendations specifically for documentation
 contributions to Solidity.
 
-British English
----------------
+English Language
+----------------
 
-Use British English, unless using project or brand names. For a good guide to
-what this means read `this guide from Oxford dictionaries <https://en.oxforddictionaries.com/spelling/british-and-spelling>`_
-or `this tutorial from the British Council <https://learnenglish.britishcouncil.org/en/intermediate-grammar/british-english-and-american-english>`_.
+Use English, with British English spelling preferred, unless using project or brand names. Try to reduce the usage of
+local slang and references, making your language as clear to all readers as possible. Below are some references to help:
+
+* `Simplified technical English <https://en.wikipedia.org/wiki/Simplified_Technical_English>`_
+* `International English <https://en.wikipedia.org/wiki/International_English>`_
+* `British English spelling <https://en.oxforddictionaries.com/spelling/british-and-spelling>`_
+
+
+.. note::
+
+    While the official Solidity documentation is written in English, there are community contributed :ref:`translations`
+    in other languages available.
 
 Title Case for Headings
 -----------------------
@@ -374,10 +383,10 @@ voice is sometimes more applicable.
 
 As a summary:
 
-* Use passive voice when describing how an aspect of Solidity or the Ethereum Virtual Machine works.
+* Use passive voice for technical reference, for example language definition and internals of the Ethereum VM.
 * Use active voice when describing recommendations on how to apply an aspect of Solidity.
 
-For example, the below is in passive voice as it discusses an aspect of Solidity:
+For example, the below is in passive voice as it specifies an aspect of Solidity:
 
   Functions can be declared ``pure`` in which case they promise not to read
   from or modify the state.
@@ -390,9 +399,9 @@ For example, the below is in active voice as it discusses an application of Soli
 Common Terms
 ------------
 
-* Function parameters and return types, not input and output parameters.
+* "Function parameters" and "return variables", not input and output parameters.
 
 Code Examples
 -------------
 
-* Ensure that all code examples begin with the correct ``pragma`` version, which is ``pragma solidity >=0.4.0 <0.6.0;``.
+* Ensure that all code examples begin with a ``pragma`` version that spans the largest where the contract code is valid. For example ``pragma solidity >=0.4.0 <0.6.0;``.

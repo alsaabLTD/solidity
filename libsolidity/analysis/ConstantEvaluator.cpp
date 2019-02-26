@@ -53,18 +53,19 @@ void ConstantEvaluator::endVisit(BinaryOperation const& _operation)
 				" and " +
 				right->toString()
 			);
-		setType(
-			_operation,
+		commonType =
 			TokenTraits::isCompareOp(_operation.getOperator()) ?
 			make_shared<BoolType>() :
-			commonType
-		);
+			commonType;
+		setType(_operation, commonType);
+		_operation.annotation().commonType = commonType;
 	}
 }
 
 void ConstantEvaluator::endVisit(Literal const& _literal)
 {
 	setType(_literal, Type::forLiteral(_literal));
+	_literal.annotation().type = Type::forLiteral(_literal);
 }
 
 void ConstantEvaluator::endVisit(Identifier const& _identifier)

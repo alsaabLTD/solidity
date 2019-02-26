@@ -120,7 +120,8 @@ Allowed options)",
 		po::options_description::m_default_line_length - 23);
 	options.add_options()
 		("help", "Show this help screen.");
-	options.add_options()("input-file", po::value<vector<string>>(), "input file");
+		("help", "Show this help screen.")
+		("input-file", po::value<vector<string>>(), "input file");
 	po::positional_options_description filesPositions;
 	filesPositions.add("input-file", -1);
 

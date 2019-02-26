@@ -12,6 +12,7 @@ Compiler Features:
  * Optimizer: Add rule for shifts with constants for Constantinople.
  * Optimizer: Combine multiple shifts with constant shift-by values into one.
  * Optimizer: Support shifts in the constant optimiser for Constantinople.
+ * Inline Assembly: Opcodes unavailable to the currently configured EVM are errors now.
 
 
 Bugfixes:

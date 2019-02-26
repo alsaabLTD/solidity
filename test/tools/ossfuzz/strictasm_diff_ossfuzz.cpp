@@ -43,15 +43,6 @@ using namespace langutil;
 using namespace dev;
 using namespace yul::test;
 
-void printErrors(ErrorList const& _errors)
-{
-	for (auto const& error: _errors)
-		SourceReferenceFormatter(cout).printExceptionInformation(
-				*error,
-				(error->type() == Error::Type::Warning) ? "Warning" : "Error"
-		);
-}
-
 void interpret(ostream& os, shared_ptr<Block> ast)
 {
 	InterpreterState state;
@@ -68,26 +59,20 @@ void interpret(ostream& os, shared_ptr<Block> ast)
 	os << "Trace:" << endl;
 	for (auto const& line: interpreter.trace())
 		os << "  " << line << endl;
-	os << "Memory dump:" << endl;
-	for (size_t i = 0; i < state.memory.size(); i += 0x20)
-		os << "  " << std::hex << std::setw(4) << i << ": " << toHex(bytesConstRef(state.memory.data() + i, 0x20).toBytes()) << endl;
-	os << "Storage dump:" << endl;
-	for (auto const& slot: state.storage)
-		os << "  " << slot.first.hex() << ": " << slot.second.hex() << endl;
 }
 
-extern "C" int LLVMFuzzerTestOneInput(const uint8_t* _data, size_t _size)
+extern "C" int LLVMFuzzerTestOneInput(uint8_t const* _data, size_t _size)
 {
-	if (_size > 450)
+	if (_size > 600)
 		return 0;
 
 	string input(reinterpret_cast<char const*>(_data), _size);
 
-	AssemblyStack stack(solidity::EVMVersion::constantinople(), AssemblyStack::Language::StrictAssembly);
-	if (stack.parseAndAnalyze("source", input))
-		yulAssert(stack.errors().empty(), "Parsed successfully but had errors.");
-	else
-		printErrors(stack.errors());
+	AssemblyStack stack(EVMVersion::constantinople(), AssemblyStack::Language::StrictAssembly);
+	if (!stack.parseAndAnalyze("source", input))
+		return 0;
+
+	yulAssert(stack.errors().empty(), "Parsed successfully but had errors.");
 
 	try
 	{
